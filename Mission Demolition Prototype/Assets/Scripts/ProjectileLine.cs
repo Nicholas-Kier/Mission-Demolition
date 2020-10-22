@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectileLine : MonoBehaviour
 {
-    public static ProjectileLine s;
+    public static ProjectileLine S;
 
     [Header("Set in Inspector")]
 
@@ -16,7 +16,7 @@ public class ProjectileLine : MonoBehaviour
 
     private void Awake()
     {
-        s = this;
+        S = this;
 
         line = GetComponent<LineRenderer>();
         line.enabled = false;
@@ -67,8 +67,7 @@ public class ProjectileLine : MonoBehaviour
             line.SetPosition(1, points[1]);
 
             line.enabled = true;
-        } else
-        {
+        } else {
             points.Add(pt);
             line.positionCount = points.Count;
             line.SetPosition(points.Count - 1, lastPoint);

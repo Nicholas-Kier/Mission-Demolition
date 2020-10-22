@@ -9,6 +9,7 @@ public class FollowCam : MonoBehaviour
     [Header("Set in Inpsector")]
 
     public float easing = 0.05f;
+    static public FollowCam S;
 
     public Vector2 minXY = Vector2.zero;
 
@@ -18,19 +19,12 @@ public class FollowCam : MonoBehaviour
 
     private void Awake()
     {
+        S = this;
         camZ = this.transform.position.z;
     }
 
     private void FixedUpdate()
     {
-        // if there's only one line following an if, it doesn't need braces
-
-        //--    if (POI == null) return; // return if there is no poi
-
-        // Get the position of the poi
-
-        //--    Vector3 destination = POI.transform.position;
-
         Vector3 destination;
 
         // If there is no poi, return to P:[0,0,0]
@@ -38,8 +32,7 @@ public class FollowCam : MonoBehaviour
         if (POI == null)
         {
             destination = Vector3.zero;
-        } else
-        {
+        } else {
             // get the position of the poi
 
             destination = POI.transform.position;
@@ -55,7 +48,11 @@ public class FollowCam : MonoBehaviour
                     // return to default view
 
                     POI = null;
-
+                    if (MissionDemolition.S.remainingShots == 0)
+                    {
+                        MissionDemolition.GameOver();
+                        MissionDemolition.S.Invoke("StartLevel", 5f);
+                    }
                     // in the next update
 
                     return;
