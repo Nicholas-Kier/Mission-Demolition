@@ -177,7 +177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3657e96c119605f468d8df6bc98e020f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7569f64b7fea98c4b8701d1085e9b306, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -331,9 +331,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'QUIT
-
-'
+  m_Text: QUIT
 --- !u!222 &420059057
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -602,7 +600,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 08e640920ed386d4ba74f84890af9f2a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b50511fd6f1d63240a13d4272e1e3b3e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -757,7 +755,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PLAY AGAIN
+  m_Text: 'PLAY AGAIN
+
+'
 --- !u!222 &1363397442
 CanvasRenderer:
   m_ObjectHideFlags: 0

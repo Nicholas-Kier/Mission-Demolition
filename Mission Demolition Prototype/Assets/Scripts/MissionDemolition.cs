@@ -56,7 +56,7 @@ public class MissionDemolition : MonoBehaviour
             Destroy(pTemp);
         }
 
-        castle = Instantiate<GameObject>(castles[level-1]);
+        castle = Instantiate<GameObject>(castles[(level - 1)]);
         castle.transform.position = castlePos;
         shotsTaken = 0;
 
