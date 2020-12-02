@@ -7,10 +7,11 @@ public class Goal : MonoBehaviour
     private readonly int level;
     static public bool goalMet = false;
 
-    public AudioSource objectiveComplete;
+    //public AudioSource objectiveComplete;
 
     private void Awake()
     {
+        //objectiveComplete = GetComponent<AudioSource>();
         if (PlayerPrefs.HasKey("playerMax"))
         {
             LoadPlayerLevel();
@@ -27,7 +28,7 @@ public class Goal : MonoBehaviour
 
             SavePlayerLevel(level + 1);
 
-            objectiveComplete.Play();
+            //objectiveComplete.Play();
         }
     }
 
