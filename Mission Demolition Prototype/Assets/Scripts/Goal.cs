@@ -4,22 +4,40 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
+    private readonly int level;
     static public bool goalMet = false;
 
-    void OnEnterTrigger(Collider other)
+    private void Awake()
     {
-        if(other.gameObject.tag == "Projectile")
+        if (PlayerPrefs.HasKey("playerMax"))
+        {
+            LoadPlayerLevel();
+        }
+        SavePlayerLevel(level);
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Projectile"))
         {
             Goal.goalMet = true;
-
             Material mat = GetComponent<Renderer>().material;
+            mat.SetColor("_Color", Color.green);
 
-            Color c = mat.color;
+            SavePlayerLevel(level + 1);
+        }
+    }
 
-            c.a = 1;
+    int LoadPlayerLevel()
+    {
+        return PlayerPrefs.GetInt("playerMaxLevel");
+    }
 
-            mat.color = c;
-            print("Gotteem!");
+    void SavePlayerLevel(int newScore)
+    {
+        if (LoadPlayerLevel() < newScore)
+        {
+            PlayerPrefs.SetInt("playerMaxLevel", newScore);
+            PlayerPrefs.Save();
         }
     }
 }

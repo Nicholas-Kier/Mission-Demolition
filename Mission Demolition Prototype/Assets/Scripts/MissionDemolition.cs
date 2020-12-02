@@ -17,6 +17,7 @@ public class MissionDemolition : MonoBehaviour
 
     public Text uitLevel;
     public Text uitShots;
+    public Text uitHighScore;
     public Text uitButton;
     public Text gameOver;
     public Vector3 castlePos;
@@ -24,23 +25,24 @@ public class MissionDemolition : MonoBehaviour
 
     [Header("Set Dynamically")]
 
-    public int level;
+    public static int level;
     public int levelMax;
-    public int remainingShots;
+    public int shotsTaken;
+    
     public GameObject castle;
+    
     public GameMode mode = GameMode.idle;
     public string showing = "Show Slingshot";
 
-    private void Start()
+    public void Start()
     {
         S = this;
-        level = 0;
+        level = 1;
         levelMax = castles.Length;
         StartLevel();
     }
     private void StartLevel()
     {
-        S.gameOver.text = "";
 
         if(castle != null)
         {
@@ -48,16 +50,18 @@ public class MissionDemolition : MonoBehaviour
         }
 
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Projectile");
+        
         foreach(GameObject pTemp in gos)
         {
             Destroy(pTemp);
         }
 
-        castle = Instantiate<GameObject>(castles[level]);
+        castle = Instantiate<GameObject>(castles[level-1]);
         castle.transform.position = castlePos;
-        remainingShots = 3;
+        shotsTaken = 0;
 
         SwitchView("Show Both");
+        
         ProjectileLine.S.Clear();
 
         Goal.goalMet = false;
@@ -68,9 +72,9 @@ public class MissionDemolition : MonoBehaviour
     }
     void UpdateGUI()
     {
-        uitLevel.text = "Level: " + (level + 1) + " of " + levelMax;
-        uitShots.text = "Shots Taken: " + remainingShots;
-        int highScore = -1;
+        uitLevel.text = "Level: " + (level) + " of " + levelMax;
+        uitShots.text = "Shots Taken: " + shotsTaken;
+        uitHighScore.text = "Highest Score: " + level;
     }
 
     void drawGUI()
@@ -83,7 +87,7 @@ public class MissionDemolition : MonoBehaviour
                 if(GUI.Button(buttonRectangle, "Show Castle"))
                 {
                     SwitchView("Castle");
-                    if(S.remainingShots == 0)
+                    if(S.shotsTaken == 0)
                     {
                         GameOver();
                         Invoke("StartLevel", 5f);
@@ -94,7 +98,7 @@ public class MissionDemolition : MonoBehaviour
                 if(GUI.Button(buttonRectangle, "Show Both"))
                 {
                     SwitchView("Both");
-                    if(S.remainingShots == 0)
+                    if(S.shotsTaken == 0)
                     {
                         GameOver();
                         Invoke("StartLevel", 5f);
@@ -105,7 +109,7 @@ public class MissionDemolition : MonoBehaviour
                 if(GUI.Button(buttonRectangle, "Show Slingshot"))
                 {
                     SwitchView("Slingshot");
-                    if(S.remainingShots == 0)
+                    if(S.shotsTaken == 0)
                     {
                         GameOver();
                         Invoke("StartLevel", 5f);
@@ -115,7 +119,7 @@ public class MissionDemolition : MonoBehaviour
         }
     }
 
-    private void Update()
+    void Update()
     {
         UpdateGUI();
 
@@ -126,13 +130,13 @@ public class MissionDemolition : MonoBehaviour
             Invoke("NextLevel", 2f);
         }
     }
-    private void NextLevel()
+    void NextLevel()
     {
-        ScoreChecker(remainingShots);
+        //ScoreChecker(remainingShots);
         level++;
-        if(level == levelMax)
+        if(level > levelMax)
         {
-            level = 0;
+            level = 1;
         }
         StartLevel();
     }
@@ -162,19 +166,19 @@ public class MissionDemolition : MonoBehaviour
     }
     public static void ShotFired()
     {
-        S.remainingShots--;
+        S.shotsTaken++;
     }
     public static void GameOver()
     {
         S.gameOver.text = "YOU DIED";
     }
-    public static void ScoreChecker(int leftoverShots)
+    /*public static void ScoreChecker(int leftoverShots)
     {
-        switch (S.level)
+        switch (S.levelMax)
         {
             case 0:
                 print("Remaining Shots: " + leftoverShots);
-                if(leftoverShots > PlayerPrefs.GetInt("LevelOneHighScore"))
+                if (leftoverShots > PlayerPrefs.GetInt("LevelOneHighScore"))
                 {
                     PlayerPrefs.SetInt("LevelOneHighScore", 3 - leftoverShots);
                 }
@@ -194,6 +198,8 @@ public class MissionDemolition : MonoBehaviour
                     PlayerPrefs.SetInt("LevelThreeHighScore", 3 - leftoverShots);
                 }
                 break;
+            default:
+                break;
         }
-    }
+    }*/
 }

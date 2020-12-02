@@ -53,13 +53,6 @@ public class Cloud : MonoBehaviour
         }
 
   }
-    private void Update()
-    {
-        /*if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Restart();
-        }*/
-    }
 
     private void Restart()
     {
