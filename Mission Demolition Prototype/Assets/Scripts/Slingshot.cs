@@ -23,6 +23,7 @@ public class Slingshot : MonoBehaviour
     public GameObject projectile;
     public bool aimingMode;
     private Rigidbody projectileRigidbody;
+    private LineRenderer line;
 
     static public Vector3 LAUNCH_POS
     {
@@ -40,6 +41,8 @@ public class Slingshot : MonoBehaviour
         launchPoint = launchPointTrans.gameObject;
         launchPoint.SetActive(false);
         launchPos = launchPointTrans.position;
+        line = GetComponent<LineRenderer>();
+        
     }
 
     private void OnMouseEnter()
@@ -69,6 +72,12 @@ public class Slingshot : MonoBehaviour
         projectileRigidbody.isKinematic = true;
 
         pullbackSound.Play();
+
+        line.enabled = true;
+        line.positionCount = 3;
+        line.SetPosition(0, transform.Find("LeftArm").position);
+        line.SetPosition(1, projectile.transform.position);
+        line.SetPosition(2, transform.Find("RightArm").position);
     }
 
     private void Update()
@@ -99,13 +108,14 @@ public class Slingshot : MonoBehaviour
         // Move the projectile to this new position
 
         Vector3 projPos = launchPos + mouseDelta;
-
+        line.SetPosition(1, projPos);
         projectile.transform.position = projPos;
 
         if (Input.GetMouseButtonUp(0))
         {
             // The mouse has been released
 
+            line.enabled = false;
             aimingMode = false;
             projectileRigidbody.isKinematic = false;
             projectileRigidbody.velocity = -mouseDelta * velocityMult;

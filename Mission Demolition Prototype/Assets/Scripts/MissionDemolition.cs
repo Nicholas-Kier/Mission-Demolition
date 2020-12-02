@@ -147,9 +147,9 @@ public class MissionDemolition : MonoBehaviour
 
     private void NextLevel()
     {
-        //ScoreChecker(remainingShots);
+        ScoreChecker(remainingShots);
         level++;
-        if (level > 3)
+        if (level > 4)
         {
             SceneManager.LoadScene("Victory");
         }
@@ -193,7 +193,7 @@ public class MissionDemolition : MonoBehaviour
         S.shotsTaken++;
     }
 
-    /*public static void ScoreChecker(int leftoverShots)
+    public static void ScoreChecker(int leftoverShots)
     {
         switch (S.levelMax)
         {
@@ -224,5 +224,5 @@ public class MissionDemolition : MonoBehaviour
             default:
                 break;
         }
-    }*/
+    }
 }
