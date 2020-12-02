@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum GameMode
@@ -9,13 +8,14 @@ public enum GameMode
     playing,
     levelEnd
 }
+
 public class MissionDemolition : MonoBehaviour
 {
     static public MissionDemolition S;
 
     [Header("Set in Inspector")]
-
     public Text uitLevel;
+
     public Text uitShots;
     public Text uitHighScore;
     public Text uitButton;
@@ -24,13 +24,15 @@ public class MissionDemolition : MonoBehaviour
     public GameObject[] castles;
 
     [Header("Set Dynamically")]
-
     public static int level;
+
     public int levelMax;
     public int shotsTaken;
-    
+    public int remainingShots;
+    public int maxShots = 5;
+
     public GameObject castle;
-    
+
     public GameMode mode = GameMode.idle;
     public string showing = "Show Slingshot";
 
@@ -40,18 +42,19 @@ public class MissionDemolition : MonoBehaviour
         level = 1;
         levelMax = castles.Length;
         StartLevel();
+        remainingShots = maxShots;
     }
+
     private void StartLevel()
     {
-
-        if(castle != null)
+        if (castle != null)
         {
             Destroy(castle);
         }
 
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Projectile");
-        
-        foreach(GameObject pTemp in gos)
+
+        foreach (GameObject pTemp in gos)
         {
             Destroy(pTemp);
         }
@@ -61,7 +64,7 @@ public class MissionDemolition : MonoBehaviour
         shotsTaken = 0;
 
         SwitchView("Show Both");
-        
+
         ProjectileLine.S.Clear();
 
         Goal.goalMet = false;
@@ -70,46 +73,49 @@ public class MissionDemolition : MonoBehaviour
 
         mode = GameMode.playing;
     }
-    void UpdateGUI()
+
+    private void UpdateGUI()
     {
         uitLevel.text = "Level: " + (level) + " of " + levelMax;
-        uitShots.text = "Shots Taken: " + shotsTaken;
+        uitShots.text = "Shots Taken: " + shotsTaken + " of 5";
         uitHighScore.text = "Highest Score: " + level;
     }
 
-    void drawGUI()
+    private void DrawGUI()
     {
         Rect buttonRectangle = new Rect(Screen.width / 2 - 50, 10, 100, 24);
 
-        switch(showing)
+        switch (showing)
         {
             case "Slingshot":
-                if(GUI.Button(buttonRectangle, "Show Castle"))
+                if (GUI.Button(buttonRectangle, "Show Castle"))
                 {
                     SwitchView("Castle");
-                    if(S.shotsTaken == 0)
+                    if (S.shotsTaken == 0)
                     {
                         GameOver();
                         Invoke("StartLevel", 5f);
                     }
                 }
                 break;
+
             case "Castle":
-                if(GUI.Button(buttonRectangle, "Show Both"))
+                if (GUI.Button(buttonRectangle, "Show Both"))
                 {
                     SwitchView("Both");
-                    if(S.shotsTaken == 0)
+                    if (S.shotsTaken == 0)
                     {
                         GameOver();
                         Invoke("StartLevel", 5f);
                     }
                 }
                 break;
+
             case "Both":
-                if(GUI.Button(buttonRectangle, "Show Slingshot"))
+                if (GUI.Button(buttonRectangle, "Show Slingshot"))
                 {
                     SwitchView("Slingshot");
-                    if(S.shotsTaken == 0)
+                    if (S.shotsTaken == 0)
                     {
                         GameOver();
                         Invoke("StartLevel", 5f);
@@ -119,30 +125,40 @@ public class MissionDemolition : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         UpdateGUI();
 
-        if((mode == GameMode.playing) && Goal.goalMet)
+        if ((mode == GameMode.playing) && Goal.goalMet)
         {
             mode = GameMode.levelEnd;
             SwitchView("Show Both");
             Invoke("NextLevel", 2f);
         }
+
+        if (mode == GameMode.playing)
+        {
+            if (shotsTaken >= 5)
+            {
+                SceneManager.LoadScene("GameOver");
+            }
+        }
     }
-    void NextLevel()
+
+    private void NextLevel()
     {
         //ScoreChecker(remainingShots);
         level++;
-        if(level > levelMax)
+        if (level > 3)
         {
-            level = 1;
+            SceneManager.LoadScene("Victory");
         }
         StartLevel();
     }
+
     public void SwitchView(string eView = "")
     {
-        if(eView == "")
+        if (eView == "")
         {
             eView = uitButton.text;
         }
@@ -154,24 +170,29 @@ public class MissionDemolition : MonoBehaviour
                 FollowCam.POI = null;
                 uitButton.text = "Show Castle";
                 break;
+
             case "Show Castle":
                 FollowCam.POI = S.castle;
                 uitButton.text = "Show Both";
                 break;
+
             case "Show Both":
                 FollowCam.POI = GameObject.Find("ViewBoth");
                 uitButton.text = "Show Slingshot";
                 break;
         }
     }
+
+    public static void GameOver()
+    {
+
+    }
+
     public static void ShotFired()
     {
         S.shotsTaken++;
     }
-    public static void GameOver()
-    {
-        S.gameOver.text = "YOU DIED";
-    }
+
     /*public static void ScoreChecker(int leftoverShots)
     {
         switch (S.levelMax)
@@ -191,6 +212,7 @@ public class MissionDemolition : MonoBehaviour
                     PlayerPrefs.SetInt("LevelTwoHighScore", 3 - leftoverShots);
                 }
                 break;
+
             case 2:
                 print("Remaining Shots: " + leftoverShots);
                 if (leftoverShots > PlayerPrefs.GetInt("LevelThreeHighScore"))
@@ -198,6 +220,7 @@ public class MissionDemolition : MonoBehaviour
                     PlayerPrefs.SetInt("LevelThreeHighScore", 3 - leftoverShots);
                 }
                 break;
+
             default:
                 break;
         }

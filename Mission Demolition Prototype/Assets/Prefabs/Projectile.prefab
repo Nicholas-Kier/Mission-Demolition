@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2594228844296121280}
   - component: {fileID: 261395995178622868}
   - component: {fileID: 1137156676173455243}
+  - component: {fileID: 3468055555194267994}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Projectile
@@ -208,6 +209,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!64 &3468055555194267994
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2214082001633884369}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &5883162206914396377
 PrefabInstance:
   m_ObjectHideFlags: 0

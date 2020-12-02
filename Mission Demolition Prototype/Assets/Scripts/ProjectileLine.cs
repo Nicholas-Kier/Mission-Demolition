@@ -23,7 +23,7 @@ public class ProjectileLine : MonoBehaviour
         points = new List<Vector3>();
     }
 
-    public GameObject poi
+    public GameObject Poi
     {
         get
         {
@@ -51,7 +51,7 @@ public class ProjectileLine : MonoBehaviour
     {
         Vector3 pt = _poi.transform.position;
 
-        if(points.Count > 0 && (pt -  lastPoint).magnitude < minDist)
+        if(points.Count > 0 && (pt -  LastPoint).magnitude < minDist)
         {
             return;
         }
@@ -70,12 +70,12 @@ public class ProjectileLine : MonoBehaviour
         } else {
             points.Add(pt);
             line.positionCount = points.Count;
-            line.SetPosition(points.Count - 1, lastPoint);
+            line.SetPosition(points.Count - 1, LastPoint);
             line.enabled = true;
         }
     }
 
-    public Vector3 lastPoint
+    public Vector3 LastPoint
     {
         get
         {
@@ -88,13 +88,13 @@ public class ProjectileLine : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(poi == null)
+        if(Poi == null)
         {
             if(FollowCam.POI != null)
             {
                 if(FollowCam.POI.tag == "Projectile")
                 {
-                    poi = FollowCam.POI;
+                    Poi = FollowCam.POI;
                 }
                 else
                 {
@@ -109,7 +109,7 @@ public class ProjectileLine : MonoBehaviour
 
         if(FollowCam.POI == null)
         {
-            poi = null;
+            Poi = null;
         }
     }
 }

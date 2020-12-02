@@ -11,10 +11,4 @@ public class RigidBodySleep : MonoBehaviour
 
         if (rb != null) rb.Sleep();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
