@@ -6,11 +6,13 @@ public class impactFX : MonoBehaviour
 {
     public AudioSource impactSound;
 
+    private void Start()
+    {
+        //impactSound = GetComponent<AudioSource>();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.relativeVelocity.magnitude > 1)
-        {
-            impactSound.Play();
-        }
+        //impactSound.Play();
     }
 }

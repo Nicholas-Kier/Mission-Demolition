@@ -13,6 +13,8 @@ public class Slingshot : MonoBehaviour
     public GameObject prefabProjectile;
     public float velocityMult = 8f;
 
+    public AudioSource pullbackSound;
+    public AudioSource releaseSound;
 
     // fields set dynamically
 
@@ -65,6 +67,8 @@ public class Slingshot : MonoBehaviour
         // Set it to isKinematic for now
         projectileRigidbody = projectile.GetComponent<Rigidbody>();
         projectileRigidbody.isKinematic = true;
+
+        pullbackSound.Play();
     }
 
     private void Update()
@@ -109,6 +113,8 @@ public class Slingshot : MonoBehaviour
             projectile = null;
             MissionDemolition.ShotFired();
             ProjectileLine.S.poi = projectile;
+
+            releaseSound.Play();
         }
     }
 }

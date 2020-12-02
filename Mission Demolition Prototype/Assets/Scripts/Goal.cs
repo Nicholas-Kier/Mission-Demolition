@@ -7,6 +7,8 @@ public class Goal : MonoBehaviour
     private readonly int level;
     static public bool goalMet = false;
 
+    public AudioSource objectiveComplete;
+
     private void Awake()
     {
         if (PlayerPrefs.HasKey("playerMax"))
@@ -24,6 +26,8 @@ public class Goal : MonoBehaviour
             mat.SetColor("_Color", Color.green);
 
             SavePlayerLevel(level + 1);
+
+            objectiveComplete.Play();
         }
     }
 

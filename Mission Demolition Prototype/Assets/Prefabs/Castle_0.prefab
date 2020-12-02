@@ -47,6 +47,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3105755881148579929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6161934465037341941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f263b4a452938034b9f853275429a720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectiveComplete: {fileID: 3788257097135269097, guid: eb0dda521eaeeb9468a954af37036059,
+    type: 3}
 --- !u!1001 &525084218370361432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114,8 +128,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 5965844466935307438, guid: 0850502df50a24943b3fd4cf9c0ad2ab,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965844466935307438, guid: 0850502df50a24943b3fd4cf9c0ad2ab,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965844466935307438, guid: 0850502df50a24943b3fd4cf9c0ad2ab,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5965844466935307438, guid: 0850502df50a24943b3fd4cf9c0ad2ab,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 48
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0850502df50a24943b3fd4cf9c0ad2ab, type: 3}
+--- !u!1 &6161934465037341941 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5965844466935307437, guid: 0850502df50a24943b3fd4cf9c0ad2ab,
+    type: 3}
+  m_PrefabInstance: {fileID: 525084218370361432}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6161934465037341938 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5965844466935307434, guid: 0850502df50a24943b3fd4cf9c0ad2ab,
@@ -1319,6 +1359,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goal
       objectReference: {fileID: 0}
+    - target: {fileID: 7430630891492526338, guid: 7afc9351f000c7142a4f8bef70347315,
+        type: 3}
+      propertyPath: objectiveComplete
+      value: 
+      objectReference: {fileID: 3788257097135269097, guid: eb0dda521eaeeb9468a954af37036059,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7afc9351f000c7142a4f8bef70347315, type: 3}
 --- !u!4 &4204528195494514135 stripped
